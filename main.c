@@ -18,6 +18,7 @@ print menu, read and run different inputs
 
 // prototype
 void endGame(int gameCounter, const bool* gameResult, const int* gameData);
+int changeMaxNumber();
 
 int main() 
 {
@@ -48,6 +49,7 @@ int main()
         } 
         else if (strcmp(menuInput,"2") == 0)
         {
+            maxNumber = changeMaxNumber();
         }
         else if (strcmp(menuInput,"3") == 0)
         {
@@ -66,6 +68,26 @@ int main()
     free(gameData);
     
     return 0;
+
+}
+
+int changeMaxNumber()
+{
+    int result = -1;
+    while (result < 0 || result > 32767)
+    {
+        printf("Enter a new max number >= 0 and < 32767: ");
+        scanf("%d", &result);
+        if (result < 0)
+        {
+            printf("Max number can not be negative\n");
+        }
+        else if (result > 32767)
+        {
+            printf("Max number can not exceed integer range\n");
+        }
+    }
+    return result;
 
 }
 
