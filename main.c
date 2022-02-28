@@ -11,3 +11,15 @@ print menu, read and run different inputs
     if quit game, indicate lost game
     end game
 */
+#include <stdio.h>
+
+
+int main() 
+{
+    // initialize menu prompt
+    const char MENU[] = "Press 1 to play a game\nPress 2 to change the max number\nPress 3 to quit\n";
+
+    printf("%s\n", MENU);
+    return 0;
+
+}
