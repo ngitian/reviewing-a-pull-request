@@ -15,10 +15,12 @@ print menu, read and run different inputs
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
 
 // prototype
 void endGame(int gameCounter, const bool* gameResult, const int* gameData);
 int changeMaxNumber();
+void startGame(int maxNumber, bool* gameResult, int* gameData);
 
 int main() 
 {
@@ -35,6 +37,13 @@ int main()
     bool* gameResult = malloc(10 * sizeof(bool));
     int* gameData = malloc(10 * sizeof(int));
 
+    // check whether malloc is successful
+    if (gameResult == NULL || gameData == NULL)
+    {
+        printf("Error: unable to allocate required memory\n");
+        playing = false;
+    }
+
     // start game loop
     while (playing)
     {
@@ -42,10 +51,13 @@ int main()
         printf("%s", MENU);
         printf("Enter input: ");
         scanf("%s", menuInput);
+        printf("\n");
 
         // run different options depends on the menu input
         if (strcmp(menuInput,"1") == 0)
         {
+            ++gameCounter;
+            startGame(maxNumber, gameResult, gameData);
         } 
         else if (strcmp(menuInput,"2") == 0)
         {
@@ -68,6 +80,38 @@ int main()
     free(gameData);
     
     return 0;
+
+}
+
+void startGame(int maxNumber bool* gameResult, int* gameData)
+{
+    // initialize target number
+    time_t t;
+    srand((unsigned) time(&t));
+    int target = rand() % (maxNumber - 1) + 1;
+    
+    // start guessing game loop
+    bool guessing = true;
+    int roundsCounter = 0;
+    char* userGuess[5];
+
+    while(guessing)
+    {
+        // increment round counter
+        ++roundsCounter;
+
+        // user input guess
+
+
+        // evaluate user input with target
+        // if q, game lost, and exit function
+        // if correct, game win, and exit function
+        // if incorrect, output either low or high
+
+
+    }
+    //process information for gameResult and gameData;
+
 
 }
 
