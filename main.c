@@ -12,7 +12,9 @@ print menu, read and run different inputs
     end game
 */
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 
 int main() 
@@ -38,7 +40,25 @@ int main()
         printf("Enter input: ");
         scanf("%s", menuInput);
 
-        
+        // run different options depends on the input
+        if (strcmp(menuInput,"1") == 0)
+        {
+            printf("Input 1\n");
+        } 
+        else if (strcmp(menuInput,"2") == 0)
+        {
+            printf("Input 2\n");
+        }
+        else if (strcmp(menuInput,"3") == 0)
+        {
+            printf("Input 3\n");
+
+            playing = false;
+        }
+        else
+        {
+            printf("Incorrect Input\n");
+        }
 
     }
 
