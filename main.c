@@ -23,16 +23,28 @@ int main()
     // initialize game loop condition
     bool playing = true;
 
-    // initialize user menu input, store as char
+    // initialize user menu input, and information and data about game
     char menuInput[10];
+    int maxNumber = 10;
+    int gameCounter = 0;
+    bool* gameResult = malloc(10 * sizeof(bool));
+    int* gameData = malloc(10 * sizeof(int));
 
     // start game loop
     while (playing)
     {
+        // prompt menu and user input
         printf("%s", MENU);
+        printf("Enter input: ");
         scanf("%s", menuInput);
-        printf("%s\n", menuInput);
+
+        
+
     }
+
+    // garbage collection
+    free(gameResult);
+    free(gameData);
     
     return 0;
 
