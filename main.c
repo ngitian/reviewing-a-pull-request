@@ -12,6 +12,7 @@ print menu, read and run different inputs
     end game
 */
 #include <stdio.h>
+#include <stdbool.h>
 
 
 int main() 
@@ -19,7 +20,20 @@ int main()
     // initialize menu prompt
     const char MENU[] = "Press 1 to play a game\nPress 2 to change the max number\nPress 3 to quit\n";
 
-    printf("%s\n", MENU);
+    // initialize game loop condition
+    bool playing = true;
+
+    // initialize user menu input, store as char
+    char menuInput[10];
+
+    // start game loop
+    while (playing)
+    {
+        printf("%s", MENU);
+        scanf("%s", menuInput);
+        printf("%s\n", menuInput);
+    }
+    
     return 0;
 
 }
