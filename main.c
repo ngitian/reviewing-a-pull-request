@@ -16,6 +16,8 @@ print menu, read and run different inputs
 #include <stdbool.h>
 #include <string.h>
 
+// prototype
+void endGame(int gameCounter, const bool* gameResult, const int* gameData);
 
 int main() 
 {
@@ -40,7 +42,7 @@ int main()
         printf("Enter input: ");
         scanf("%s", menuInput);
 
-        // run different options depends on the input
+        // run different options depends on the menu input
         if (strcmp(menuInput,"1") == 0)
         {
             printf("Input 1\n");
@@ -52,7 +54,7 @@ int main()
         else if (strcmp(menuInput,"3") == 0)
         {
             printf("Input 3\n");
-
+            endGame(gameCounter, gameResult, gameData);
             playing = false;
         }
         else
@@ -67,5 +69,18 @@ int main()
     free(gameData);
     
     return 0;
+
+}
+
+void endGame(int gameCounter, const bool* gameResult, const int* gameData)
+{
+    // thank the player
+    printf("Thanks for playing number guessing game\n");
+
+    // output result
+    for (int i = 0; i < gameCounter; ++i)
+    {
+        printf("game %d: win/lose with %d rounds\n", i, gameData[i]);
+    }
 
 }
