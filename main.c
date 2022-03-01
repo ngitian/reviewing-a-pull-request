@@ -20,22 +20,22 @@ print menu, read and run different inputs
 // prototype
 void endGame(int gameCounter, const bool* gameResult, const int* gameData);
 int changeMaxNumber();
-void startGame(int maxNumber, bool* gameResult, int* gameData);
+void startGame(int maxNumber, int gameCounter, bool* gameResult, int* gameData);
 
 int main() 
 {
     // initialize menu prompt
-    const char MENU[] = "Press 1 to play a game\nPress 2 to change the max number\nPress 3 to quit\n";
+    const char MENU[] = "\nPress 1 to play a game\nPress 2 to change the max number\nPress 3 to quit\n";
 
     // initialize game loop condition
     bool playing = true;
 
     // initialize user menu input, and information and data about game
-    char menuInput[10];
+    char menuInput[5];
     int maxNumber = 10;
     int gameCounter = 0;
-    bool* gameResult = malloc(10 * sizeof(bool));
-    int* gameData = malloc(10 * sizeof(int));
+    bool* gameResult = malloc(2 * sizeof(bool));
+    int* gameData = malloc(2 * sizeof(int));
 
     // check whether malloc is successful
     if (gameResult == NULL || gameData == NULL)
@@ -57,7 +57,7 @@ int main()
         if (strcmp(menuInput,"1") == 0)
         {
             ++gameCounter;
-            startGame(maxNumber, gameResult, gameData);
+            startGame(maxNumber, gameCounter, gameResult, gameData);
         } 
         else if (strcmp(menuInput,"2") == 0)
         {
@@ -83,7 +83,7 @@ int main()
 
 }
 
-void startGame(int maxNumber bool* gameResult, int* gameData)
+void startGame(int maxNumber, int gameCounter, bool* gameResult, int* gameData)
 {
     // initialize target number
     time_t t;
@@ -93,7 +93,7 @@ void startGame(int maxNumber bool* gameResult, int* gameData)
     // start guessing game loop
     bool guessing = true;
     int roundsCounter = 0;
-    char* userGuess[5];
+    char userGuess[5];
 
     while(guessing)
     {
@@ -101,17 +101,56 @@ void startGame(int maxNumber bool* gameResult, int* gameData)
         ++roundsCounter;
 
         // user input guess
-
+        printf("Guess a number: ");
+        scanf("%s", userGuess);
 
         // evaluate user input with target
         // if q, game lost, and exit function
         // if correct, game win, and exit function
         // if incorrect, output either low or high
+        if (strcmp(userGuess, "q") == 0)
+        {
+            // game lost
+            guessing = false;
+        }
+        else if (strtol(userGuess, NULL, 10) == target)
+        {
+            printf("Guess is correct!\n");
+            guessing = false;
+        }
+        else if (strtol(userGuess, NULL, 10) < target)
+        {
+            printf("Guess is too low\n");
+        }
+        else if (strtol(userGuess, NULL, 10) > target)
+        {
+            printf("Guess is too high\n");
+        }
+        else
+        {
+            printf("Invalid input\n");
+        }
 
 
     }
-    //process information for gameResult and gameData;
 
+    // realloc if gameData and gameResult can't hold anymore memory
+    size_t size = sizeof(gameData) / sizeof(int);
+    if (size <= gameCounter)
+    {
+        printf("Before, size:%lu, gameData size:%lu\n", size, sizeof(gameData));
+        gameData = realloc(gameData, size * 2 * sizeof(int));
+        gameResult = realloc(gameResult, size * 2 * sizeof(bool));
+        printf("After, size:%lu, gameData size:%lu\n", size, sizeof(gameData));
+
+        for (int i=0; i < gameCounter; ++i)
+        {
+            printf("%d\n", gameData[i]);
+        }
+    }
+    // process information for gameResult and gameData;
+    gameData[gameCounter] = roundsCounter;
+    gameResult[gameCounter] = true;
 
 }
 
@@ -143,7 +182,7 @@ void endGame(int gameCounter, const bool* gameResult, const int* gameData)
     // output result
     for (int i = 0; i < gameCounter; ++i)
     {
-        printf("game %d: win/lose with %d rounds\n", i, gameData[i]);
+        printf("game %d: win/lose with %d rounds\n", i + 1, gameData[i]);
     }
 
 }
